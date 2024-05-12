@@ -8,7 +8,6 @@ namespace GeneticAlgorithm
     {
         static Random random = new Random();
 
-        // Генерация случайной особи (популяции)
         static List<int> GenerateRandomIndividual(int length)
         {
             return Enumerable.Range(0, length)
@@ -16,17 +15,13 @@ namespace GeneticAlgorithm
                 .ToList();
         }
 
-        // Оценка приспособленности особи (функция приспособленности)
         static double EvaluateFitness(List<int> individual)
         {
-            // Ваша функция приспособленности (например, минимизация функции)
-            // Здесь можно реализовать любую задачу оптимизации
 
-            // Пример: сумма значений особи
             return individual.Sum();
         }
 
-        // Скрещивание двух особей
+
         static List<int> Crossover(List<int> parent1, List<int> parent2)
         {
             int crossoverPoint = random.Next(parent1.Count);
@@ -35,13 +30,12 @@ namespace GeneticAlgorithm
                 .ToList();
         }
 
-        // Мутация особи
         static void Mutate(List<int> individual, double mutationRate)
         {
             for (int i = 0; i < individual.Count; i++)
             {
                 if (random.NextDouble() < mutationRate)
-                    individual[i] = 1 - individual[i]; // Инвертирование бита
+                    individual[i] = 1 - individual[i]; 
             }
         }
 
@@ -78,7 +72,7 @@ namespace GeneticAlgorithm
             }
         }
 
-        // Выбор родителя с использованием рулеточного метода
+
         static int rouletteWheelSelection(List<double> fitnessScores)
         {
             double totalFitness = fitnessScores.Sum();
