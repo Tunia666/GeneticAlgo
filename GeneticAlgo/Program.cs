@@ -8,25 +8,18 @@ namespace GeneticAlgorithm
     {
         static Random random = new Random();
 
-        // Генерация случайной особи (популяции)
         static List<int> GenerateRandomIndividual(int length)
         {
             return Enumerable.Range(0, length)
-                .Select(_ => random.Next(2)) // 0 или 1
+                .Select(_ => random.Next(2))
                 .ToList();
         }
 
-        // Оценка приспособленности особи (функция приспособленности)
         static double EvaluateFitness(List<int> individual)
         {
-            // Ваша функция приспособленности (например, минимизация функции)
-            // Здесь можно реализовать любую задачу оптимизации
 
-            // Пример: сумма значений особи
             return individual.Sum();
         }
-
-        // Скрещивание двух особей
         static List<int> Crossover(List<int> parent1, List<int> parent2)
         {
             int crossoverPoint = random.Next(parent1.Count);
@@ -35,19 +28,18 @@ namespace GeneticAlgorithm
                 .ToList();
         }
 
-        // Мутация особи
-        void Mutate(List<int> individual, double mutationRate)
+        static void Mutate(List<int> individual, double mutationRate)
         {
             for (int i = 0; i < individual.Count; i++)
             {
                 if (random.NextDouble() < mutationRate)
-                    individual[i] = 1 - individual[i]; // Инвертирование бита
+                    individual[i] = 1 - individual[i];
             }
         }
 
-        static void Muin(string[] args)
+        static void Main(string[] args)
         {
-            double populationSize = 100;
+            int populationSize = 100;
             int individualLength = 10;
             double mutationRate = 0.01;
             int generations = 100;
@@ -78,7 +70,7 @@ namespace GeneticAlgorithm
             }
         }
 
-        // Выбор родителя с использованием рулеточного метода
+
         static int rouletteWheelSelection(List<double> fitnessScores)
         {
             double totalFitness = fitnessScores.Sum();
@@ -92,7 +84,7 @@ namespace GeneticAlgorithm
                     return i;
             }
 
-            //return fitnessScores.Count - 1;
+            return fitnessScores.Count - 1;
         }
 
     }
