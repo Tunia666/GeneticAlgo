@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,7 +36,7 @@ namespace GeneticAlgorithm
         }
 
         // Мутация особи
-        void Mutate(List<int> individual, double mutationRate)
+        static void Mutate(List<int> individual, double mutationRate)
         {
             for (int i = 0; i < individual.Count; i++)
             {
@@ -45,15 +45,14 @@ namespace GeneticAlgorithm
             }
         }
 
-        static void Muin(string[] args)
+        static void Main(string[] args)
         {
             double populationSize = 100;
             int individualLength = 10;
             double mutationRate = 0.01;
             int generations = 100;
 
-
-            List<List<int>> population = Enumerable.Range(0, populationSize)
+            List<List<int>> population = Enumerable.Range(0, (int)populationSize)
                 .Select(_ => GenerateRandomIndividual(individualLength))
                 .ToList();
 
@@ -67,8 +66,8 @@ namespace GeneticAlgorithm
                 var newPopulation = new List<List<int>>();
                 while (newPopulation.Count < populationSize)
                 {
-                    var parent1 = population[rouletteWheelSelection(fitnessScores)];
-                    var parent2 = population[rouletteWheelSelection(fitnessScores)];
+                    var parent1 = population[RouletteWheelSelection(fitnessScores)];
+                    var parent2 = population[RouletteWheelSelection(fitnessScores)];
                     var child = Crossover(parent1, parent2);
                     Mutate(child, mutationRate);
                     newPopulation.Add(child);
@@ -79,7 +78,7 @@ namespace GeneticAlgorithm
         }
 
         // Выбор родителя с использованием рулеточного метода
-        static int rouletteWheelSelection(List<double> fitnessScores)
+        static int RouletteWheelSelection(List<double> fitnessScores)
         {
             double totalFitness = fitnessScores.Sum();
             double randomValue = random.NextDouble() * totalFitness;
@@ -92,7 +91,8 @@ namespace GeneticAlgorithm
                     return i;
             }
 
-            //return fitnessScores.Count - 1;
+            // В случае, если fitnessScores пуст, возвращаем случайное значение
+            return random.Next(fitnessScores.Count);
         }
 
     }
