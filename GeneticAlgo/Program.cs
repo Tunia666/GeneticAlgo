@@ -20,8 +20,6 @@ namespace GeneticAlgorithm
 
             return individual.Sum();
         }
-
-
         static List<int> Crossover(List<int> parent1, List<int> parent2)
         {
             int crossoverPoint = random.Next(parent1.Count);
